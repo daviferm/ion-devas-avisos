@@ -1,0 +1,81 @@
+<main #mdalbg class="modal-background animated fadeIn" (click)="closeModal($event)">
+    <div #cardmodal class="modal-container bounceInUp">
+        <ion-fab class="fab-close" vertical="top" horizontal="end">
+            <ion-fab-button color="dark" (click)="closeModal($event)">
+                <ion-icon name="close-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+        <ion-card>
+            <ion-card-header>
+                <ion-toolbar>
+                    <ion-card-title class="card-title">
+                        <ion-label class="alert-title">{{ item.alarma.Parquimetro }}</ion-label>
+                    </ion-card-title>
+                </ion-toolbar>
+            </ion-card-header>
+            <ion-card-content>
+                <div class="detalles">
+                    <h2 *ngIf="item.alarma.Tarifa === 'AR'">
+                        <ion-badge class="badge-ar" color="primary">ALTA ROTACIÓN</ion-badge>
+                    </h2>
+                    <p class="mb-2">
+                        <ion-badge class="mr-2" color="tertiary">Barrio:</ion-badge>{{ item.alarma.Barrio }} </p>
+                    <p class="mb-2">
+                        <ion-badge class="mr-2" color="tertiary">Dirección:</ion-badge> {{ item.alarma.Direccion }}</p>
+                    <p class="mb-2">
+                        <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ item.detalles[0].FechaInicio | date:'short' }}</p>
+                    <p class="mb-2">
+                        <ion-badge class="mr-2" color="tertiary">Fuente:</ion-badge> {{ item.detalles[0].Fuente }}</p>
+
+                    <ion-item [ngClass]="{'std-mant': item.alarma.Estado === 'Petici�n de mantenimiento',
+                                          'std-sin-servicio': item.alarma.Estado === 'Fuera de servicio',
+                                          'std-conexion': item.alarma.Estado === 'No comunica'}">
+                        <p class="mb-2 estado">
+                            {{ item.detalles[0].Estado }}
+                        </p>
+                    </ion-item>
+                    <ion-item-divider>
+                        <ion-label>
+                            Detalles:
+                        </ion-label>
+                    </ion-item-divider>
+                    <ion-item class="ion-activated" *ngFor="let averia of item.detalles;  let i = index">
+                        <span> {{ averia.Descripcion }} </span>
+                    </ion-item>
+                    <ion-footer>
+                        <div class="footer">
+                            <div class="footer-nav">
+                                <ion-fab horizontal="start" slot="fixed">
+                                    <ion-fab-button color="primary">
+                                        <ion-icon name="navigate"></ion-icon>
+                                    </ion-fab-button>
+                                    <ion-fab-list side="end">
+                                        <ion-fab-button (click)="comoLlegar( item, 'google' )">
+                                            <ion-avatar>
+                                                <img src="assets/img/google-fab02.png">
+                                            </ion-avatar>
+                                        </ion-fab-button>
+                                        <ion-fab-button *ngIf="isMobileIphone()" (click)="comoLlegar( item, 'apple' )">
+                                            <ion-avatar>
+                                                <img src="assets/img/apple-map.png">
+                                            </ion-avatar>
+                                        </ion-fab-button>
+                                        <ion-fab-button (click)="comoLlegar( item, 'waze' )">
+                                            <ion-avatar>
+                                                <img src="assets/img/waze-map.png" />
+                                            </ion-avatar>
+                                        </ion-fab-button>
+                                    </ion-fab-list>
+                                </ion-fab>
+                            </div>
+                            <div class="footer-label">
+                                <!-- <ion-label> Navegación</ion-label> -->
+                            </div>
+                        </div>
+                    </ion-footer>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+</main>

@@ -1,0 +1,102 @@
+<div class="contenido animated fadeIn fast">
+    <div class="list-group">
+        <div *ngFor="let barrio of Barrios; let idx = index">
+            <div *ngIf="barrio.activo">
+                <button type="button" class="tituloBarrio item" *ngIf="barrio.alarmas.length > 0">
+                    <div class="barrio">
+                        <p class="text-center d-block"> {{ barrio.barrio | uppercase }} </p>
+                    </div>
+                </button>
+                <div *ngFor="let alarma of barrio.alarmas">
+                    <button type="button" (click)="mostrarDetalles(alarma)" class="peticionMantenimiento item" [ngClass]="{'tituloAlarmaNoComunica': alarma.detalles[0].Descripcion == 'No comunica', 'tituloAlarmaFueradeServicio': alarma.alarma.Estado.toUpperCase() === 'FUERA DE SERVICIO', 'altaRotacion': alarma.alarma.Tarifa === 'AR'}">
+                        <div class="pre-img">
+                            <img *ngIf="alarma.alarma.Fuente.includes('Controlador') || alarma.detalles[0].Fuente.includes('Controlador')" src="../../../assets/img/controlador.png">
+                        </div>
+                        <img class="img-ar" *ngIf="alarma.alarma.Tarifa === 'AR'" src="../../../assets/img/alarmas/altaRotacion.png" alt="">
+                        <p>
+                            {{ alarma.alarma.Parquimetro }}
+                        </p>
+                        <div class="imagen">
+                            <img [src]="alarma | imgItem">
+                            <ion-icon *ngIf="alarma.detalles[0].Descripcion.includes('datapack')" name="hardware-chip-outline"></ion-icon>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Card Modal -->
+<ion-modal [isOpen]="openModal" [breakpoints]="[0.1, 0.6, 0.8, 1]" [initialBreakpoint]="0.6" (didDismiss)="closemodal()">
+    <!-- [presentingElement]="routerOutlet.nativeEl" -->
+    <ng-template>
+        <ion-toolbar>
+            <ion-chip slot="start" color="dark" (click)="closemodal()">
+                <!-- <ion-icon color="light" name="close"></ion-icon> -->
+                <ion-label class="chip-close">cerrar</ion-label>
+            </ion-chip>
+            <ion-title class="modal-alias">{{ selectAlarma.alarma.Parquimetro }}</ion-title>
+            <ion-chip slot="end" color="dark" (click)="closemodal()">
+                <ion-label class="chip-close">cerrar</ion-label>
+                <!-- <ion-icon color="light" name="close"></ion-icon> -->
+            </ion-chip>
+        </ion-toolbar>
+        <ion-content>
+            <ion-card>
+                <ion-card-content>
+                    <div class="detalles">
+                        <h2 *ngIf="selectAlarma.alarma.Tarifa === 'AR'">
+                            <ion-badge class="badge-ar" color="primary">ALTA ROTACIÓN</ion-badge>
+                        </h2>
+                        <p class="mb-2">
+                            <ion-badge class="mr-2" color="tertiary">Barrio:</ion-badge>{{ selectAlarma.alarma.Barrio }} </p>
+                        <p class="mb-2">
+                            <ion-badge class="mr-2" color="tertiary">Dirección:</ion-badge> {{ selectAlarma.alarma.Direccion }}</p>
+                        <p class="mb-2">
+                            <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ selectAlarma.detalles[0].FechaInicio | date:'short'  }}</p>
+                        <p class="mb-2">
+                            <ion-badge class="mr-2" color="tertiary">Fuente:</ion-badge> {{ selectAlarma.detalles[0].Fuente }}</p>
+
+                        <ion-item [ngClass]="{'std-mant': selectAlarma.alarma.Estado === 'Petici�n de mantenimiento',
+                                              'std-sin-servicio': selectAlarma.alarma.Estado === 'Fuera de servicio',
+                                              'std-conexion': selectAlarma.alarma.Estado === 'No comunica'}">
+                            <p class="mb-2 estado">
+                                {{ selectAlarma.detalles[0].Estado }}
+                            </p>
+                        </ion-item>
+                        <ion-item-divider>
+                            <ion-label>
+                                Detalles:
+                            </ion-label>
+                        </ion-item-divider>
+                        <ion-item class="ion-activated" *ngFor="let averia of selectAlarma.detalles;  let i = index">
+                            <span> {{ averia.Descripcion }} </span>
+                        </ion-item>
+                    </div>
+                    <ion-fab horizontal="start" slot="fixed">
+                        <ion-fab-button color="primary">
+                            <ion-icon name="navigate"></ion-icon>
+                        </ion-fab-button>
+                        <ion-fab-list side="end">
+                            <ion-fab-button (click)="comoLlegar( selectAlarma, 'google' )">
+                                <ion-avatar>
+                                    <img src="assets/img/google-fab02.png">
+                                </ion-avatar>
+                            </ion-fab-button>
+                            <ion-fab-button *ngIf="isMobileIphone()" (click)="comoLlegar( selectAlarma, 'apple' )">
+                                <ion-avatar>
+                                    <img src="assets/img/apple-map.png">
+                                </ion-avatar>
+                            </ion-fab-button>
+                            <ion-fab-button (click)="comoLlegar( selectAlarma, 'waze' )">
+                                <ion-avatar>
+                                    <img src="assets/img/waze-map.png" />
+                                </ion-avatar>
+                            </ion-fab-button>
+                        </ion-fab-list>
+                    </ion-fab>
+                </ion-card-content>
+            </ion-card>
+        </ion-content>
+    </ng-template>
+</ion-modal>

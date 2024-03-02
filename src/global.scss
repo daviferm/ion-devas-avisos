@@ -24,3 +24,207 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+.header {
+  position: fixed !important;
+  bottom: 0px !important;
+}
+
+// Animación
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.animated.fast {
+  -webkit-animation-duration: 800ms;
+  animation-duration: 800ms;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+.bounceIn {
+  animation-duration: 0.50s;
+  animation-name: bounceIn;
+}
+
+@keyframes bounceIn {
+  from,
+  20%,
+  40%,
+  60%,
+  80%,
+  to {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+      opacity: 0;
+      transform: scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+      transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+      transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+      opacity: 1;
+      transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+      transform: scale3d(0.97, 0.97, 0.97);
+  }
+  to {
+      opacity: 1;
+      transform: scale3d(1, 1, 1);
+  }
+}
+
+.fadeOutDownBig {
+  animation-duration: 0.50s;
+  animation-name: fadeOutDownBig;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeOutDownBig {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+      transform: translate3d(0, 2000px, 0);
+  }
+}
+
+.bounceInUp {
+  animation-duration: 0.60s;
+  animation-name: bounceInUp;
+}
+
+@keyframes bounceInUp {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  from {
+      opacity: 0;
+      transform: translate3d(0, 3000px, 0);
+  }
+  60% {
+      opacity: 1;
+      transform: translate3d(0, -20px, 0);
+  }
+  75% {
+      transform: translate3d(0, 10px, 0);
+  }
+  90% {
+      transform: translate3d(0, -5px, 0);
+  }
+  to {
+      transform: translate3d(0, 0, 0);
+  }
+}
+
+//===========================
+// Estilos Modal Detalles
+//===========================
+ion-card {
+  height: 95% !important;
+  ion-card-content {
+      height: 90% !important;
+  }
+}
+
+.detalles {
+  position: relative;
+  p {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+  }
+}
+
+.mr-2 {
+  margin-right: .5rem !important;
+}
+
+.mr-4 {
+  margin-right: 1.5rem !important;
+}
+
+.ml-4 {
+  margin-left: 1.5rem !important;
+}
+
+.mb-2 {
+  margin-bottom: .5rem !important;
+}
+
+.std-mant {
+  --background: #f6e15c !important;
+  height: 40px !important;
+}
+
+.std-conexion {
+  --background: #4086ff !important;
+  height: 40px !important;
+}
+
+.std-sin-servicio {
+  --background: #f87978 !important;
+  height: 40px !important;
+}
+
+.estado {
+  width: 100% !important;
+  text-transform: uppercase;
+  font-size: 1rem !important;
+  text-align: center !important;
+}
+
+.btn-nav {
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+ion-fab {
+  margin-top: 1rem;
+}
+
+ion-toggle {
+  --handle-box-shadow: 0 3px 12px rgba(64, 216, 236, 0.6), 0 3px 1px rgba(50, 70, 255, 0.6);
+  --background: #d6d6d6 !important;
+  --handle-height: 30px;
+  --handle-width: 30px;
+  // height: 25px !important;
+  // width: 40px !important;
+  overflow: visible;
+  contain: none;
+}

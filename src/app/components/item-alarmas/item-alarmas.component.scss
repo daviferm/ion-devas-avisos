@@ -1,0 +1,149 @@
+ion-toolbar {
+    max-width: 480px;
+    --background: linear-gradient(to bottom, #767575 40%, #262626 100%);
+    ion-title {
+        text-align: center;
+    }
+}
+
+.contenido {
+    width: 100%;
+    padding-bottom: 5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    max-width: 480px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0 auto;
+}
+
+span {
+    font-size: 1.2rem;
+}
+
+ion-icon {
+    color: black;
+    margin-top: 4px;
+    font-size: 1.8rem;
+}
+
+// CLASES ALARMAS
+.item {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+    margin: 1px 0px;
+    font: 16pt 'Lucida Sans Unicode';
+    .img-ar {
+        margin-top: 5px;
+    }
+    .pre-img {
+        flex: 0 0 20%;
+        align-items: center;
+        img {
+            width: 40px;
+            margin-top: 5px;
+        }
+    }
+    p {
+        flex: 1 0 50%;
+        text-align: center;
+        margin: 6px 0px;
+        font-size: 1.6rem;
+        color: black;
+    }
+    .imagen {
+        position: relative;
+        width: 40px;
+        flex: 0 0 30%;
+        display: flex;
+        justify-content: center;
+        img {
+            width: 40px!important;
+            height: 35px;
+        }
+    }
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: .5rem;
+    margin-top: -1rem;
+    .badge-ar {
+        font-size: 1.5rem;
+        border-radius: 2px !important;
+    }
+}
+
+.peticionMantenimiento {
+    background: linear-gradient(to bottom, #f3f781, #facd33);
+}
+
+.altaRotacion {
+    background: #5cc9f5;
+}
+
+.tituloBarrio {
+    background: linear-gradient(to bottom, #767575 40%, #262626 100%);
+    font-weight: lighter;
+    .barrio {
+        width: 100%;
+        position: relative;
+        p {
+            margin: 0px;
+            color: whitesmoke;
+            margin-top: 5px;
+            font-size: .9em;
+        }
+    }
+}
+
+.tituloAlarmaFueradeServicio {
+    background: linear-gradient(to bottom, #f87979 40%, #f87979 100%);
+}
+
+.tituloAlarmaPeticionMantenimiento {
+    background: linear-gradient(to bottom, #767575 40%, #262626 100%);
+}
+
+.tituloAlarmaNoComunica {
+    background: linear-gradient(to bottom, #3466ff 20%, #4ba7ff 100%);
+    color: black;
+}
+
+.DetalleNoComunica {
+    background: linear-gradient(to bottom, #767575 40%, #262626 100%);
+}
+
+.header {
+    background: linear-gradient(to bottom, #767575 40%, #262626 100%);
+}
+
+@media screen and (min-width: 1000px) {
+    .contenido {
+        justify-content: space-between;
+        .contenedor {
+            order: 2;
+        }
+        .mapa {
+            display: flex;
+            order: 1;
+            flex: 1;
+            height: 100%;
+        }
+    }
+}
+
+// Estilos Modal información
+.modal-alias {
+    font-size: 1.5rem;
+    color: #f4f5f8;
+}
+
+.chip-close {
+    margin-left: -5px;
+    color: #f4f5f8;
+}

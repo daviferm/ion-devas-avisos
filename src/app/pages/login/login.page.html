@@ -1,0 +1,16 @@
+<ion-content class="content-login">
+    <div class="contenido">
+        <div class="home">
+            <ion-label>Ingresa el código</ion-label>
+            <ion-item class="ion-no-border item-search">
+                <ion-searchbar [(ngModel)]="texto" animated placeholder="Introduce el código" searchIcon="earth-outline"></ion-searchbar>
+            </ion-item>
+            <div class="btn">
+                <ion-button class="btn-send" (click)="enviarCodigo($event)">
+                    Enviar
+                    <ion-icon name="send-outline"></ion-icon>
+                </ion-button>
+            </div>
+        </div>
+    </div>
+</ion-content>

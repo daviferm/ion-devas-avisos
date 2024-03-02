@@ -1,0 +1,24 @@
+.mdal-header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    ion-chip {
+        margin: .5rem;
+    }
+    .modal-title {
+        margin-top: .8rem;
+    }
+}
+
+.btn-close {
+    // margin: .4rem;
+    margin-left: 1rem;
+}
+
+.img-icon {
+    width: 35px;
+    height: 35px;
+    margin: 10px;
+}

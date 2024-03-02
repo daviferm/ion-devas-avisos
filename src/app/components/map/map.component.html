@@ -1,0 +1,39 @@
+<!-- Angular maps -->
+
+<div class="container">
+  <google-map #mapDiv
+    [options]="mapOptions"
+    height="100vh"
+    width="100vw">
+    <!-- (zoomChanged)="changeZoomMap(mapDiv)" -->
+
+    @for( marker of markers; track marker.alarma.Parquimetro ) {
+      <map-marker class="marcador" (mapClick)="abrirModal(marker)" [position]="{lat: marker.alarma.Latitud, lng: marker.alarma.Longitud}"  [options]="markerOptions" [icon]="marker | iconUrl" />
+    }
+
+    @if( gps ) {
+      <map-marker #marker [position]="markerPosition" [options]="markerGpsOptions" />
+    }
+
+    @for( polygon of barriosSelec; track polygon.id ) {
+      <map-polygon [paths]="polygon.coords" [options]="polygonOptions" />
+    }
+  </google-map>
+</div>
+<!-- fab placed to the top end -->
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="light" (click)="seguir(mapDiv)">
+        @if( gps ) {
+          <ion-icon class="animated fadeIn" name="navigate"></ion-icon>
+        } @else {
+          <ion-icon name="navigate-outline"></ion-icon>
+        }
+    </ion-fab-button>
+</ion-fab>
+<ion-fab slot="fixed" horizontal="end" vertical="end">
+    <ion-fab-button class="fab-list" color="light" (click)="mostrarInfoIcons()">
+        <ion-icon name="information-outline"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
+<app-alert-detalles *ngIf="openAlertInfo" [item]="infoMarker" (cerrarAlert)="cerrarModalInfo($event)"></app-alert-detalles>
+<app-modal-lista-iconos *ngIf="openListIcon" [isModalOpen]="openListIcon" (cerrarModal)="cerrarModalListIcon($event)"></app-modal-lista-iconos>

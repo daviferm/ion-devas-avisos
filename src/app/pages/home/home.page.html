@@ -1,0 +1,55 @@
+<ion-header [translucent]="true" class="ion-no-border header">
+    <ion-tabs>
+        <ion-tab-bar [ngClass]="{'tabios': isMobileIphone(), 'tabandroid': !isMobileIphone()}" slot="bottom">
+            <ion-tab-button [ngClass]="{'ion-claro': listado, 'ion-oscuro': !listado}" [routerLink]="['/login']">
+                <i class="fa-solid fa-arrow-right-from-bracket fa-icon"></i>
+            </ion-tab-button>
+            <ion-tab-button [ngClass]="{'ion-claro': listado, 'ion-oscuro': !listado}" (click)="listado = true">
+                <i class="fa-solid fa-list-ul fa-icon"></i>
+            </ion-tab-button>
+            <ion-tab-button [ngClass]="{'ion-claro': listado, 'ion-oscuro': !listado}" (click)="mostrarMapa()">
+                <i class="fa-regular fa-map fa-icon"></i>
+            </ion-tab-button>
+            <ion-tab-button [ngClass]="{'ion-claro': listado, 'ion-oscuro': !listado}" (click)="modalSelectBarrios()">
+                <i class="fa-solid fa-gear fa-icon"></i>
+            </ion-tab-button>
+            <ion-tab-button [ngClass]="{'ion-claro': listado, 'ion-oscuro': !listado}" (click)="actualizarAlarmas()">
+                <div #myRefresh class="icon-img dv-refres">
+                    <i class="fa-solid fa-arrows-rotate fa-icon"></i>
+                </div>
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+</ion-header>
+<ion-content [fullscreen]="true">
+
+
+    <div *ngIf="listado; then lista else mapa"></div>
+    <div class="contenido">
+        <ng-template #lista>
+            <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+                <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
+            <div class="contenido-list">
+                <div *ngIf="spinner" class="spinner-bg">
+                    <div class="ion-spinner">
+                        <ion-spinner color="light"></ion-spinner>
+                    </div>
+                </div>
+                <app-item-alarmas [Barrios]="barriosHTML"></app-item-alarmas>
+            </div>
+        </ng-template>
+        <ng-template #mapa>
+            <div *ngIf="spinner" class="spinner-bg">
+                <div class="ion-spinner">
+                    <ion-spinner color="light"></ion-spinner>
+                </div>
+            </div>
+            <app-map [markers]="markers"></app-map>
+        </ng-template>
+    </div>
+
+</ion-content>
+<!-- Card Modal -->
+<!-- [swipeToClose]="true" -->
+<app-modal-ajustes *ngIf="madalAjustes" [modalOpen]="openModal" (openModal)="closemodal($event)"></app-modal-ajustes>

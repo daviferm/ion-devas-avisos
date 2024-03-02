@@ -1,0 +1,61 @@
+<!-- Card Modal -->
+<!-- [swipeToClose]="true" -->
+<ion-modal mode="ios" [isOpen]="modalOpen" (didDismiss)="closemodal()" [breakpoints]="[0.1, 0.5, 0.96, 1]" [initialBreakpoint]="1">
+    <!-- [presentingElement]="routerOutlet.nativeEl" -->
+    <ng-template>
+        <div class="mdal-header">
+            <ion-chip mode="ios" slot="start" color="dark" (click)="closemodal()">
+                <!-- <ion-icon color="light" name="close"></ion-icon> -->
+                <ion-label class="chip-close" color="dark">cerrar</ion-label>
+            </ion-chip>
+            <span color="light" class="modal-title"> Selección barrios </span>
+            <ion-chip mode="ios" slot="end" color="dark" (click)="closemodal()">
+                <!-- <ion-icon color="light" name="close"></ion-icon> -->
+                <ion-label class="chip-close" color="dark">cerrar</ion-label>
+            </ion-chip>
+        </div>
+        <ion-content class="ion-padding content">
+            <div class="btn-select">
+                <ion-buttons>
+                    <ion-chip mode="ios" color="success" (click)="selecionarTodo(true)">
+                        <!-- <ion-icon name="pin"></ion-icon> -->
+                        <ion-label mode="ios" color="dark">Todos</ion-label>
+                    </ion-chip>
+                    <ion-chip mode="ios" color="danger" (click)="selecionarTodo(false)">
+                        <!-- <ion-icon name="pin"></ion-icon> -->
+                        <ion-label mode="ios" color="dark">Ninguno</ion-label>
+                    </ion-chip>
+                    <ion-chip mode="ios" color="dark" (click)="devasUno()">
+                        <!-- <ion-icon name="pin"></ion-icon> -->
+                        <ion-label mode="ios" color="dark">Devas I</ion-label>
+                    </ion-chip>
+                    <ion-chip mode="ios" color="dark" (click)="devasDos()">
+                        <!-- <ion-icon name="pin"></ion-icon> -->
+                        <ion-label mode="ios" color="dark">Devas II</ion-label>
+                    </ion-chip>
+                </ion-buttons>
+            </div>
+            <div class="btn-select">
+            </div>
+            <div class="contenido" #divtoggle>
+                <div *ngFor="let barrio of barrios; let i = index" class="div-toggle">
+                    <ion-label mode="ios" class="label"> {{ barrio.barrio }} </ion-label>
+                    <ion-toggle mode="ios" aria-label="Success toggle" color="success" [value]="barrio.numero" [checked]="barrio.activo"> </ion-toggle>
+                </div>
+            </div>
+            <div class="btn-enviar">
+                <div>
+                    <ion-chip mode="ios" slot="start" color="dark" (click)="closemodal()">
+                        <!-- <ion-icon color="light" name="close"></ion-icon> -->
+                        <ion-label class="chip-close chip-ft" color="dark">cerrar</ion-label>
+                    </ion-chip>
+                </div>
+                <div class="div-filtro">
+                    <ion-button mode="ios" class="btn-filtro" size="small" (click)="aplicarFiltroAjustes()">
+                        APLICAR FILTRO
+                    </ion-button>
+                </div>
+            </div>
+        </ion-content>
+    </ng-template>
+</ion-modal>
