@@ -13,6 +13,8 @@ export class AlarmasService {
   // Railway
   URL_RAILWAY = 'https://node-avisos-devas-production-b8a9.up.railway.app/login';
 
+  URL_LOCALHOST = 'https://localhost:3049/login';
+
   // URL Firebase producción
   URL_FIREBASE = 'https://us-central1-avisos-devas-pwa.cloudfunctions.net/api/login';
 
