@@ -1,6 +1,7 @@
 <!-- Angular maps -->
 
 <div class="container">
+
   <google-map #mapDiv
     [options]="mapOptions"
     height="100vh"
@@ -20,8 +21,9 @@
     }
   </google-map>
 </div>
+
 <!-- fab placed to the top end -->
-<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+<ion-fab class="fa-bottom" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="light" (click)="seguir(mapDiv)">
         @if( gps ) {
           <ion-icon class="animated fadeIn" name="navigate"></ion-icon>
@@ -30,10 +32,12 @@
         }
     </ion-fab-button>
 </ion-fab>
-<ion-fab slot="fixed" horizontal="end" vertical="end">
-    <ion-fab-button class="fab-list" color="light" (click)="mostrarInfoIcons()">
-        <ion-icon name="information-outline"></ion-icon>
-    </ion-fab-button>
+<ion-fab  vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button class="fab-list"  color="light" (click)="mostrarInfoIcons()">
+      <ion-icon name="information-outline"></ion-icon>
+  </ion-fab-button>
 </ion-fab>
+
+
 <app-alert-detalles *ngIf="openAlertInfo" [item]="infoMarker" (cerrarAlert)="cerrarModalInfo($event)"></app-alert-detalles>
 <app-modal-lista-iconos *ngIf="openListIcon" [isModalOpen]="openListIcon" (cerrarModal)="cerrarModalListIcon($event)"></app-modal-lista-iconos>

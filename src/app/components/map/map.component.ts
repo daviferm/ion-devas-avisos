@@ -77,10 +77,6 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-  }
-
-  ngOnInit() {
-
     this.$subscription = this.geolocationService.obtenerPosicion().subscribe( position => {
       if ( position ) {
         this.gps = true;
@@ -94,6 +90,10 @@ export class MapComponent implements OnInit, OnDestroy {
       this.aplicarFirtro( data );
       // this.getBarriosStorage();
     } )
+  }
+
+  ngOnInit() {
+
 
 
   }
@@ -115,15 +115,18 @@ export class MapComponent implements OnInit, OnDestroy {
 
   getBarriosStorage() {
     this.barriosSelec = this.polygonosService.barriosLayers;
-    this.storageService.getStorage('area-barrios').then( (data: objStorage[]) => {
-      if ( data ) {
-        this.barriosSelec = [];
-        this.aplicarFirtro( data );
-      }
-    } )
+    const data = JSON.parse( this.storageService.getLocalStorage('area-barrios')! );
+    if ( !data ) {
+      this.barriosSelec = this.barriosFull!;
+    } else {
+
+      this.aplicarFirtro( data );
+    }
   }
 
   aplicarFirtro( data: objStorage[] ) {
+
+    this.barriosSelec = [];
     const dataStorage = data.filter( (elem:objStorage) => elem.activo );
     dataStorage.forEach( (area:objStorage) => {
       const elem = this.barriosFull!.find( element => element.id.startsWith( area.numero ) );

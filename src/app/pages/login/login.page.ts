@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlarmasService } from 'src/app/services/alarmas.service';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginPage {
 
   private router = inject( Router );
+  private alarmasService = inject( AlarmasService );
 
   texto!: string;
   tokenId!: string;
@@ -44,6 +46,14 @@ export class LoginPage {
 
   mostrarAyuda() {
     this.router.navigate(['instrucciones']);
+  }
+
+  seletServer( event: any ) {
+    if ( event.detail == 'clouding' ) {
+      this.alarmasService.URL_ALARMAS = this.alarmasService.URL_BACKDVS;
+    } else {
+      this.alarmasService.URL_ALARMAS = this.alarmasService.URL_FIREBASE;
+    }
   }
 
 }

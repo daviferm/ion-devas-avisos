@@ -136,6 +136,7 @@ export class HomePage {
   //===============================================
   ordenarAvisos(alarmas: any) {
 
+
     const anio = new Date().getFullYear();
 
     this.totalAvisos = [];
@@ -373,7 +374,6 @@ export class HomePage {
       if ( !resp ) {
         this.errorActualizarAlarmas();
       } else {
-
         // traslada el scroll al inicio del viewport
         document.getElementsByTagName('body')[0].scrollIntoView();
 

@@ -1,8 +1,8 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
 import { Alarma, Parquimetro } from '../interfaces/alarmas.interface';
-import { from, of, Subscription } from 'rxjs';
+import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -11,12 +11,16 @@ import { Router } from '@angular/router';
 export class AlarmasService {
   public actualizarAvisos = new EventEmitter<any>();
   // Railway
-  URL_RAILWAY = 'https://node-avisos-devas-production-b8a9.up.railway.app/login';
 
-  URL_LOCALHOST = 'https://localhost:3049/login';
+  // url_localhost = 'http://localhost:3000/login';
+  // url_clouding = 'http://200.234.231.177:3049/login';
 
-  // URL Firebase producción
-  URL_FIREBASE = 'https://us-central1-avisos-devas-pwa.cloudfunctions.net/api/login';
+  //* URL vps Clouding.io
+  public URL_BACKDVS = 'https://back-dvs.cloud/login';
+  //* URL Firebase producción
+  public URL_FIREBASE = 'https://us-central1-avisos-devas-pwa.cloudfunctions.net/api/login';
+
+  public URL_ALARMAS = this.URL_BACKDVS;
 
 
   // URL_SERVICES = '/login'
@@ -43,9 +47,9 @@ export class AlarmasService {
   // Obtener las alarmas de la página de UTEDEVAS
   getAlarmas() {
     return ajax
-      .getJSON(`${this.URL_FIREBASE}/${this.id}`)
+      .getJSON(`${this.URL_ALARMAS}/${this.id}`)
       .pipe(
-        // tap( resp => console.log(resp) ),
+        // tap( resp => console.log(this.URL_ALARMAS) ),
         map((resp: any) => {
           this.avisos = resp.alarmas;
           this.actualizarAvisos.emit( this.avisos );
@@ -58,8 +62,9 @@ export class AlarmasService {
         })
       )
   }
-
-   // Obtener arreglo con todos los parquímetros y los guarda en Firebase
+   //*?====================================================================
+   //*  Obtener arreglo con todos los parquímetros y los guarda en Firebase
+   //*?====================================================================
    getFirebase() {
 
     return ajax

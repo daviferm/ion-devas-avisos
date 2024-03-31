@@ -1,3 +1,7 @@
+.container {
+  height: 110vh !important;
+}
+
 .modal-inf {
     position: absolute;
     top: 15px;
@@ -23,7 +27,7 @@ agm-map {
     height: 100vh;
 }
 
-ion-fab-button {
+.fa-bottom {
     margin-bottom: 60px !important;
 }
 

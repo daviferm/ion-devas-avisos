@@ -1,3 +1,16 @@
+<ion-header>
+  <ion-toolbar (ionChange)="seletServer($event)">
+    <ion-segment value="clouding">
+      <ion-segment-button #valor value="clouding">
+        <ion-label>Clouding.io</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="firebase">
+        <ion-label>Firebase</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="content-login">
     <div class="contenido">
         <div class="home">

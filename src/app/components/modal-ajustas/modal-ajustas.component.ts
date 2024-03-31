@@ -57,19 +57,17 @@ export class ModalAjustasComponent implements OnInit {
   }
   ngAfterViewInit() {
 
-    this.storageService.getStorage('area-barrios').then( ( barrios: objStorage[] ) => {
-      this.delay.subscribe( () => {
-        this.llenarAjustes( barrios );
-      } )
+    const barrios = this.storageService.getLocalStorage('area-barrios');
+    this.delay.subscribe( () => {
+      this.llenarAjustes( JSON.parse(barrios!) );
     } );
+
 
     this.storageService.actualizarAjustes.subscribe( ajustes => {
       if ( ajustes ) {
-        this.storageService.getStorage('area-barrios').then( ( barrios: objStorage[] ) => {
-
-          this.delay.subscribe( () => {
-            this.llenarAjustes( barrios );
-          } )
+        const barrios = this.storageService.getLocalStorage('area-barrios');
+        this.delay.subscribe( () => {
+          this.llenarAjustes( JSON.parse(barrios!) );
         } );
       }
     } )
@@ -89,7 +87,7 @@ export class ModalAjustasComponent implements OnInit {
       this.barrios[i].activo = elements[i].children[1].checked;
     }
     // Guardar cambios en el Storage
-    this.storageService.setStorage('area-barrios', this.barrios);
+    this.storageService.setLocalStorage('area-barrios', JSON.stringify(this.barrios));
 
     // Enviar resultado
     this.storageService.actualizarStorage.emit( this.barrios );
@@ -108,14 +106,14 @@ export class ModalAjustasComponent implements OnInit {
         this.renderer.setAttribute( elements[i].children[1], 'checked', 'true' );
       }
       // Guardar cambios en el Storage
-      this.storageService.setStorage('area-barrios', this.barrios);
+      this.storageService.setLocalStorage('area-barrios', JSON.stringify(this.barrios));
     } else {
       // Desmarcar todos los toggles
       for ( let i = 0; i < elements.length; i++ ) {
         this.barrios[i].activo = false;
         this.renderer.setAttribute( elements[i].children[1], 'checked', 'false' );
       }
-      this.storageService.setStorage('area-barrios', this.barrios);
+      this.storageService.setLocalStorage('area-barrios', JSON.stringify(this.barrios));
     }
   }
 
@@ -142,7 +140,7 @@ export class ModalAjustasComponent implements OnInit {
       }
     }
     // Guardar cambios en el Storage
-    this.storageService.setStorage('area-barrios', this.barrios);
+    this.storageService.setLocalStorage('area-barrios', JSON.stringify(this.barrios));
 
   }
   devasDos() {
@@ -159,7 +157,7 @@ export class ModalAjustasComponent implements OnInit {
       }
     }
     // Guardar cambios en el Storage
-    this.storageService.setStorage('area-barrios', this.barrios);
+    this.storageService.setLocalStorage('area-barrios', JSON.stringify(this.barrios));
 
   }
 

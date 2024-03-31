@@ -16,21 +16,12 @@ export class IconUrlPipe implements PipeTransform {
     //==========================================================
     // Establecer preferencia de Alarmas en función de la Fuente
     //==========================================================
-
-    // const falsaAlarma = ['0215131160', '0215231448', '0215231459', '0215231463', '0215431470', '0215431475', '0215431480', '0215431482', '0215431480', '0215431484', '0215431499', '0215431510', '0215431512', '0215431521', '0215631536', '0215631551', '0215631554', '0215631555', '0215731261', '0215731263', '0215731278'];
     const averia = value.detalles[0].Descripcion;
     const aviso = value.detalles[0];
     let objAlarma = value.detalles[0];
     // if ( value.alarma.Fuente === ',' ) {
     //   objAlarma = value.detalles[0];
     // }
-    //===============================================
-    // Enviar imagen para las Alarmas Falsas
-    //===============================================
-    // if ( falsaAlarma.includes( aviso.Parquimetro ) ) {
-    //   return `${this.urlPlataforma}/falsaAlarma.png`;
-    // }
-    // console.log(aviso.Parquimetro);
     //==========================================================
     // Enviar imagen marcador para parquímetro de alta rotación
     //==========================================================
@@ -44,7 +35,7 @@ export class IconUrlPipe implements PipeTransform {
 
             this.urlAltaRotacion = `${this.urlAltaRotacion}/plataforma`;
 
-          } else  if ( aviso.Estado == 'Fuera de servicio' ) {
+          } else  if ( aviso.Estado == 'Fuera de Servicio' ) {
 
             this.urlAltaRotacion = `${this.urlAltaRotacion}/plataforma/fueraDeServicio`;
 
@@ -294,88 +285,6 @@ export class IconUrlPipe implements PipeTransform {
     }
 
     this.incluirIcono( averia, this.urlAltaRotacion );
-
-    //   if ( aviso.includes('Bater�a baja') || aviso.includes('Bateria baja') ) {
-    //     this.url = `${urlCarpeta}/bateria.png`;
-    //     return this.url;
-    //   }
-    //  if ( aviso.includes('CUBETA') ) {
-    //     this.url = `${urlCarpeta}/cubetamonedas.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('MONEDA') ) {
-    //     this.url = `${urlCarpeta}/monedas.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('monedas') ) {
-    //     this.url = `${urlCarpeta}/monedas.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('BANCARIO') ) {
-    //     this.url = `${urlCarpeta}/tarjeta.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('BANCARIA') ) {
-    //     this.url = `${urlCarpeta}/tarjeta.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('EMV') ) {
-    //     this.url = `${urlCarpeta}/tarjeta.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('LIMPIEZA') ) {
-    //     this.url = `${urlCarpeta}/limpieza.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('NO IMPRIME') ) {
-    //     this.url = `${urlCarpeta}/impresora.png`;
-    //     // this.url = `${this.urlAltaRotacion}/impresora.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('tiquets') || aviso.includes('Impresora') ) {
-    //     this.url = `${urlCarpeta}/impresora.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('CONEXION') || aviso.includes('No comunica') ) {
-    //     this.url = `${urlCarpeta}/offline.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('TECLADO') ) {
-    //     this.url = `${urlCarpeta}/teclado.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('DISPLAY') ) {
-    //     this.url = `${urlCarpeta}/display.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('TICKETS') ) {
-    //     this.url = `${urlCarpeta}/impresora.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('BARRIO') ) {
-    //     this.url = `${urlCarpeta}/pegatinaBarrio.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('TARIFAS') ) {
-    //     this.url = `${urlCarpeta}/pegatinaTarifa.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('SERVICIO') ) {
-    //     this.url = `${urlCarpeta}/fueradeservicio.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('Antidrilling') ) {
-    //     this.url = `${urlCarpeta}/antidrilling.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('Violaci�n alcanc�a') ) {
-    //     this.url = `${urlCarpeta}/abierto.png`;
-    //     return this.url;
-    //   }
-    //   if ( aviso.includes('Bater�a') || aviso.includes('Bateria') ) {
-    //     this.url = `${urlCarpeta}/bateria.png`;
-    //     return this.url;
-    //   }
 
     return `${urlCarpeta}/basico.png`;
 

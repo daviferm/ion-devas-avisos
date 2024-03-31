@@ -33,4 +33,16 @@ export class StorageService {
     return this._storage!.get( key );
   }
 
+  //*? =================================================
+  //*? Local Storage
+  //*? =================================================
+  setLocalStorage( key: string, value: string ) {
+    // Guardamos la lista de tareas en localStorage
+    localStorage.setItem( key, value);
+  }
+
+  public getLocalStorage( key: any ) {
+    return localStorage.getItem( key );
+  }
+
 }
