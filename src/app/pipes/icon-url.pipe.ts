@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Detalles, InfoAlarma, Parquimetro } from '../interfaces/alarmas.interface';
+import { Detalles } from '../interfaces/alarmas.interface';
 
 
 @Pipe({
@@ -13,6 +13,7 @@ export class IconUrlPipe implements PipeTransform {
   urlAltaRotacion = 'assets/img/altaRotacion';
   transform(value: any): string {
 
+    // console.log(value);
     //==========================================================
     // Establecer preferencia de Alarmas en función de la Fuente
     //==========================================================
@@ -131,7 +132,7 @@ export class IconUrlPipe implements PipeTransform {
               return this.url;
             }
             if ( averia.includes('No comunica') ) {
-              this.url = 'assets/img/plataforma/offline.png';
+              this.url = 'assets/img/plataforma/offline2.png';
               return this.url;
             }
             if ( averia.includes('Violaci�n alcanc�a') || averia.includes('Violaci�n puerta') ) {
@@ -148,7 +149,7 @@ export class IconUrlPipe implements PipeTransform {
               return this.url;
             }
             if ( objAlarma.Estado == 'No Comunica' ) {
-              this.url = 'assets/img/plataforma/offline.png';
+              this.url = 'assets/img/plataforma/offline2.png';
               return this.url;
             }
 

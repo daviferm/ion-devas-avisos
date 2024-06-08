@@ -18473,8 +18473,19 @@
       "empresa": "Devas 2",
       "estado": "activo",
       "fabricante": "Parkare",
-      "latitud": 40.43873119525812,
-      "longitud": -3.6828972077623656,
+      "latitud": "40.43873119525812",
+      "longitud": "-3.6828972077623656",
+      "tarifa": "ZBE"
+    },
+    {
+      "alias": "0205111279",
+      "barrio": "51 EL VISO.",
+      "direccion": "C. de Velázquez, 134 BIS",
+      "empresa": "Devas 2",
+      "estado": "activo",
+      "fabricante": "Parkare",
+      "latitud": "40.4389",
+      "longitud": "-3.68285",
       "tarifa": "ZBE"
     },
     {

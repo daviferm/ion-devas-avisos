@@ -42,13 +42,14 @@ ion-toolbar {
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                --background: #00b7ea!important;
                 ion-icon {
                     margin-left: 1rem;
                 }
                 .btn-send {
                     width: 250px;
-                    background: #00b7ea!important;
+                    --background: #249fc1!important;
+                    border-radius: 6px;
+
                 }
             }
         }

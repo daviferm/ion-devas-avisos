@@ -136,7 +136,6 @@ export class HomePage {
   //===============================================
   ordenarAvisos(alarmas: any) {
 
-
     const anio = new Date().getFullYear();
 
     this.totalAvisos = [];
@@ -175,7 +174,7 @@ export class HomePage {
         const alarmaDetalles:any[] = [];
         this.totalAvisos.map( (elem: any) => {
           if ( elem[0] === el.Parquimetro && elem[1].slice(0, 2) !== item.barrio.slice(0, 2) ) {
-            let detalle: Detalles = {
+            const detalle: Detalles = {
               Parquimetro: elem[0],
               Descripcion: elem[1],
               Estado: elem[2],
@@ -184,6 +183,8 @@ export class HomePage {
               idAlarmaActual: elem[5],
               // prioridad: 1
             };
+            // let detalles = this.convertirFecha( detalle );
+
             const prioridad = this.establecerPrioridad(detalle);
             detalle.prioridad = prioridad;
             //==========================================================
@@ -199,6 +200,7 @@ export class HomePage {
         //===============================================
         // Ordenar los avios por orden de prioridad
         //===============================================
+        // console.log(alarmaDetalles);
         this.ordenarPorFecha(alarmaDetalles);
         this.ordenarPorPrioridad(alarmaDetalles);
         const alarm = {
@@ -208,14 +210,11 @@ export class HomePage {
         item.alarmas[idx] = alarm;
       } );
     });
-
     this.marcadores( this.barriosHTML );
     // this.loading.dismiss();
     this.spinner = false;
 
   }
-
-
 
   //==========================================================
   // Establecer prioridad de la Alarma
@@ -236,11 +235,12 @@ export class HomePage {
   //==========================================================
   establecerPrioridad(detalles: Detalles): number {
 
-    if ( new Date().getDate() != Number(detalles.FechaInicio.slice(0,2)) ) {
-      return 20;
-    }
+    // console.log(detalles);
+    // if ( new Date().getDate() != Number(detalles.FechaInicio.slice(0,2)) ) {
+    //   return 20;
+    // }
     if ( detalles.Fuente == 'Plataforma' ) {
-        if ( detalles.Estado.includes('servicio') ) {
+        if ( detalles.Estado.includes('servicio') || detalles.Estado.includes('Servicio') ) {
           return 1;
         }
         if ( detalles.Descripcion.includes('SIN CONEXION') || detalles.Descripcion.includes('No comunica') ) {
@@ -305,27 +305,27 @@ export class HomePage {
       const segundos = arrHora[2];
       el.FechaInicio = new Date(anio, Number(mes), dia, hora, minutos, segundos);
     } )
-    arr.sort((a, b) => {
-      return b.FechaInicio.getTime() - a.FechaInicio.getTime();
-    });
+    // arr.sort((a, b) => {
+    //   return b.FechaInicio.getTime() - a.FechaInicio.getTime();
+    // });
     return arr;
   }
 
   //===============================================
   // Convertir en objeto new Date
   //===============================================
-  convertirFecha(detalles: Detalles) {
-      let numMes = detalles.FechaInicio.slice(3,5) - 1;
+  convertirFecha(inicio: string) {
+      let numMes = Number(inicio.slice(3,5)) - 1;
       const mes = ( numMes < 10 ) ? `0${numMes}` : numMes;
-      const dia = detalles.FechaInicio.slice(0,2);
-      const anio = detalles.FechaInicio.slice(6,10);
-      const horario = detalles.FechaInicio.slice(11, detalles.FechaInicio.length );
+      const dia = inicio.slice(0,2);
+      const anio = inicio.slice(6,10);
+      const horario = inicio.slice(11, inicio.length );
       let arrHora = horario.split(':');
       const hora = (arrHora[0].length == 1) ? '0' + arrHora[0] : arrHora[0];
       const minutos = arrHora[1];
       const segundos = arrHora[2];
-      detalles.FechaInicio = new Date(anio, Number(mes), dia, hora, minutos, segundos);
-      return detalles;
+      const fechaInicio  = new Date(Number(anio), Number(mes), Number(dia), Number(hora), Number(minutos), Number(segundos));
+      return fechaInicio;
 
   }
 
@@ -345,8 +345,12 @@ export class HomePage {
     // DETECTAR SI EL AVISO VIENE SI COORDENADAS
     //===============================================
     // tslint:disable-next-line: no-shadowed-variable
+    let idx = 0;
     this.markers.forEach( marker => {
       const markerLocal = this.dataLocal.find( mk => mk.alias === marker.alarma.Parquimetro );
+      if ( !markerLocal ) {
+        console.log(marker);
+      }
       // Cambiar latitud y longitud por los de la base de datos local
       if ( markerLocal ) {
         marker.alarma.Longitud = Number(markerLocal.longitud);

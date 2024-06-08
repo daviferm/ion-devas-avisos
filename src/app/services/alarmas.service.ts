@@ -44,7 +44,9 @@ export class AlarmasService {
     } )
   }
 
-  // Obtener las alarmas de la página de UTEDEVAS
+  //*?===============================================
+  //*? Obtener las alarmas de la página de UTEDEVAS
+  //*?===============================================
   getAlarmas() {
     return ajax
       .getJSON(`${this.URL_ALARMAS}/${this.id}`)

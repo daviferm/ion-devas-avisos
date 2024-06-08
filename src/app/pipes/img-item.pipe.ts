@@ -8,6 +8,9 @@ export class ImgItemPipe implements PipeTransform {
 
   transform(alarma: InfoAlarma): string {
 
+    if ( alarma.alarma.Estado == 'No Comunica' ) {
+      return 'assets/img/alarmas/Offline.png';
+    }
     // if ( alarma.detalles.length > 0 ) {}
     if ( alarma.detalles[0].Descripcion.includes('Bateria') || alarma.detalles[0].Descripcion.includes('Bater�a') ) {
       return 'assets/img/alarmas/low-battery.png';
