@@ -8,6 +8,7 @@ import { GeolocationService } from '../../services/geolocation.service';
 import { GoogleMap } from '@angular/google-maps';
 import { Position } from '@capacitor/geolocation';
 import { PolygnosService } from 'src/app/services/polygnos.service';
+import { SemaforoFotoRojoService } from 'src/app/services/semaforo-foto-rojo.service';
 
 
 
@@ -21,6 +22,7 @@ export class MapComponent implements OnInit, OnDestroy {
   private storageService = inject( StorageService );
   private geolocationService = inject( GeolocationService );
   public polygonosService = inject( PolygnosService );
+  private semaforoService = inject( SemaforoFotoRojoService );
 
   @Input() markers: Marker[] = [];
   openListIcon: boolean = false;
@@ -28,6 +30,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
 
   // imgPosition = 'assets/icon/marker-car.png';
+  iconSemaforo = 'assets/img/semaforo-01.png';
   gps = false;
   barriosFull?: LayerBarrio[];
   barriosSelec!: LayerBarrio[];
@@ -69,9 +72,12 @@ export class MapComponent implements OnInit, OnDestroy {
   };
   markerPosition!: google.maps.LatLngLiteral;
 
+  semaforos: any;
+
 
   constructor() {
 
+    this.semaforos = this.semaforoService.semaforoFotoRojo;
     this.barriosFull = this.polygonosService.barriosLayers;
     this.getBarriosStorage();
   }

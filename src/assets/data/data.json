@@ -22678,14 +22678,25 @@
       "tarifa": "Normal"
     },
     {
-      "alias": "0205611039",
+      "alias": "0205611116",
       "barrio": "56 CASTILLA.",
-      "direccion": "Av. de Burgos esquina Nuestra Señora del Recuerdo",
+      "direccion": "C. de Sta. Magdalena Sofía, 1",
       "empresa": "Devas 2",
       "estado": "activo",
       "fabricante": "Parkare",
-      "latitud": "40.469054",
-      "longitud": "-3.676942",
+      "latitud": "40.469158",
+      "longitud": "-3.676497",
+      "tarifa": "Normal"
+    },
+    {
+      "alias": "0205611117",
+      "barrio": "56 CASTILLA.",
+      "direccion": "Av. de Burgos, 4",
+      "empresa": "Devas 2",
+      "estado": "activo",
+      "fabricante": "Parkare",
+      "latitud": "40.4697430",
+      "longitud": "-3.6763730",
       "tarifa": "Normal"
     },
     {

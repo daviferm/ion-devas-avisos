@@ -53,6 +53,7 @@ export class AlarmasService {
       .pipe(
         // tap( resp => console.log(this.URL_ALARMAS) ),
         map((resp: any) => {
+          console.log(resp);
           this.avisos = resp.alarmas;
           this.actualizarAvisos.emit( this.avisos );
           return resp.alarmas;

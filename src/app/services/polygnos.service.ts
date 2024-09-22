@@ -1105,7 +1105,6 @@ export class PolygnosService {
         {lat: 40.460088, lng: -3.664874}, {lat: 40.464005, lng: -3.666948},
       ]
     },
-
   ];
 
 }

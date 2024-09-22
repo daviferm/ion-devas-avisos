@@ -124,3 +124,9 @@ export interface GeolocationPosition {
   timestamp: number
 }
 
+export interface SemaroroRojo {
+  id: string;
+  direccion: string;
+  coord: {lat: number, lng: number};
+}
+

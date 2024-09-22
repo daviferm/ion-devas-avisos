@@ -19,6 +19,10 @@
     @for( polygon of barriosSelec; track polygon.id ) {
       <map-polygon [paths]="polygon.coords" [options]="polygonOptions" />
     }
+
+    @for( semaforo of semaforos; track semaforo.id ) {
+      <map-marker #marker [position]="semaforo.coord" [options]="markerOptions" [icon]="iconSemaforo" />
+    }
   </google-map>
 </div>
 
