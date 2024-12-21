@@ -201,8 +201,8 @@ export class HomePage {
         // Ordenar los avios por orden de prioridad
         //===============================================
         // console.log(alarmaDetalles);
-        this.ordenarPorFecha(alarmaDetalles);
         this.ordenarPorPrioridad(alarmaDetalles);
+        this.ordenarPorFecha(alarmaDetalles);
         const alarm = {
           alarma: el,
           detalles: alarmaDetalles
@@ -281,8 +281,8 @@ export class HomePage {
   }
   //==========================================================
   // ORDENAR LAS AVERIAS DEPENDIENDO DE SU PRIORIDAD
-  //==========================================================
   ordenarPorPrioridad(arr: Detalles[]) {
+  //==========================================================
     arr.sort((a, b) => {
       return a.prioridad! - b.prioridad!;
     });
@@ -293,6 +293,7 @@ export class HomePage {
   // Ordernar avios por fecha y hora
   //===============================================
   ordenarPorFecha(arr: Detalles[]) {
+    const fechaHoy = new Date();
     arr.forEach( el => {
       let numMes = el.FechaInicio.slice(3,5) - 1;
       const mes = ( numMes < 10 ) ? `0${numMes}` : numMes;
@@ -305,9 +306,13 @@ export class HomePage {
       const segundos = arrHora[2];
       el.FechaInicio = new Date(anio, Number(mes), dia, hora, minutos, segundos);
     } )
-    // arr.sort((a, b) => {
-    //   return b.FechaInicio.getTime() - a.FechaInicio.getTime();
-    // });
+    arr.forEach( el => {
+      if ( el.FechaInicio.getDate() == fechaHoy.getDate() && el.FechaInicio.getMonth() == fechaHoy.getMonth() ) {
+        arr.sort((a, b) => {
+          return b.FechaInicio.getTime() - a.FechaInicio.getTime();
+        });
+      }
+    } )
     return arr;
   }
 
