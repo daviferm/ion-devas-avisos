@@ -22,26 +22,40 @@
                         <ion-badge class="mr-2" color="tertiary">Barrio:</ion-badge>{{ item.alarma.Barrio }} </p>
                     <p class="mb-2">
                         <ion-badge class="mr-2" color="tertiary">Dirección:</ion-badge> {{ item.alarma.Direccion }}</p>
-                    <p class="mb-2">
-                        <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ item.detalles[0].FechaInicio | date:'short' }}</p>
-                    <p class="mb-2">
-                        <ion-badge class="mr-2" color="tertiary">Fuente:</ion-badge> {{ item.detalles[0].Fuente }}</p>
+                        @if( item.detalles.length > 0 ) {
+                          <p class="mb-2">
+                              <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ item.detalles[0].FechaInicio | date:'short' }}</p>
+                          <p class="mb-2">
+                              <ion-badge class="mr-2" color="tertiary">Fuente:</ion-badge> {{ item.detalles[0].Fuente }}</p>
+                        }
 
-                    <ion-item [ngClass]="{'std-mant': item.alarma.Estado === 'Petici�n de mantenimiento',
-                                          'std-sin-servicio': item.alarma.Estado === 'Fuera de servicio',
-                                          'std-conexion': item.alarma.Estado === 'No comunica'}">
-                        <p class="mb-2 estado">
-                            {{ item.detalles[0].Estado }}
-                        </p>
+                    <ion-item [ngClass]="{'std-mant': item.alarma.Estado.includes('Mantenimiento') || item.alarma.Estado.includes('mantenimiento'),
+                                          'std-sin-servicio': item.alarma.Estado.includes('Servicio') ||  item.alarma.Estado.includes('servicio'),
+                                          'std-conexion': item.alarma.Estado == 'No comunica'}">
+                          <p class="mb-2 estado">
+                            @if( item.detalles.length > 0 ) {
+                              {{ item.detalles[0].Estado }}
+                            } @else {
+                              @if( item.alarma.Estado.includes('Mantenimiento') || item.alarma.Estado.includes('mantenimiento') ) {
+                                Petición de Mantenimiento
+                              } @else if( item.alarma.Estado == 'No comunica' ) {
+                                No Comunica
+                              } @else {
+                                Fuera de Servicio
+                              }
+                            }
+                          </p>
                     </ion-item>
                     <ion-item-divider>
                         <ion-label>
                             Detalles:
                         </ion-label>
                     </ion-item-divider>
-                    <ion-item class="ion-activated" *ngFor="let averia of item.detalles;  let i = index">
-                        <span> {{ averia.Descripcion }} </span>
-                    </ion-item>
+                    @if( item.detalles.length > 0 ) {
+                      <ion-item class="ion-activated" *ngFor="let averia of item.detalles;  let i = index">
+                          <span> {{ averia.Descripcion }} </span>
+                      </ion-item>
+                    }
                     <ion-footer>
                         <div class="footer">
                             <div class="footer-nav">

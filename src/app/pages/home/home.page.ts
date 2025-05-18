@@ -166,11 +166,9 @@ export class HomePage {
     }
 
     this.barriosHTML.forEach( item => {
-
       item.alarmas = this.avisos.filter( el => el.Barrio.substring( 0, 3 ) === item.barrio.substring( 0, 3 ) );
 
       item.alarmas.forEach( (el:Alarma, idx:number) => {
-
         const alarmaDetalles:any[] = [];
         this.totalAvisos.map( (elem: any) => {
           if ( elem[0] === el.Parquimetro && elem[1].slice(0, 2) !== item.barrio.slice(0, 2) ) {
@@ -201,8 +199,8 @@ export class HomePage {
         // Ordenar los avios por orden de prioridad
         //===============================================
         // console.log(alarmaDetalles);
+        // this.ordenarPorFecha(alarmaDetalles);
         this.ordenarPorPrioridad(alarmaDetalles);
-        this.ordenarPorFecha(alarmaDetalles);
         const alarm = {
           alarma: el,
           detalles: alarmaDetalles
@@ -235,7 +233,6 @@ export class HomePage {
   //==========================================================
   establecerPrioridad(detalles: Detalles): number {
 
-    // console.log(detalles);
     // if ( new Date().getDate() != Number(detalles.FechaInicio.slice(0,2)) ) {
     //   return 20;
     // }
@@ -316,9 +313,9 @@ export class HomePage {
     return arr;
   }
 
-  //===============================================
-  // Convertir en objeto new Date
-  //===============================================
+  //?===============================================
+  //? Convertir en objeto new Date
+  //?===============================================
   convertirFecha(inicio: string) {
       let numMes = Number(inicio.slice(3,5)) - 1;
       const mes = ( numMes < 10 ) ? `0${numMes}` : numMes;
@@ -338,7 +335,6 @@ export class HomePage {
   // Enviar marcadores para mostrarlos en el mapa
   //===============================================
   marcadores( alarmas: Barrios[] ) {
-
     this.markers = [];
     alarmas.forEach( barrio => {
       if ( barrio.activo ) {
@@ -347,7 +343,7 @@ export class HomePage {
     } );
 
     //===============================================
-    // DETECTAR SI EL AVISO VIENE SI COORDENADAS
+    // DETECTAR SI EL AVISO VIENE SIN COORDENADAS
     //===============================================
     // tslint:disable-next-line: no-shadowed-variable
     let idx = 0;

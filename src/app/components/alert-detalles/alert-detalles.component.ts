@@ -26,7 +26,6 @@ export class AlertDetallesComponent implements OnInit {
 
 
   ngOnInit() {
-    // console.log(this.item);
   }
 
   async comoLlegar( marker: Marker, mapa: string ) {

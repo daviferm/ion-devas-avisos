@@ -76,7 +76,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
 
   constructor() {
-
     this.semaforos = this.semaforoService.semaforoFotoRojo;
     this.barriosFull = this.polygonosService.barriosLayers;
     this.getBarriosStorage();

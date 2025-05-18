@@ -44,4 +44,4 @@
 
 
 <app-alert-detalles *ngIf="openAlertInfo" [item]="infoMarker" (cerrarAlert)="cerrarModalInfo($event)"></app-alert-detalles>
-<app-modal-lista-iconos *ngIf="openListIcon" [isModalOpen]="openListIcon" (cerrarModal)="cerrarModalListIcon($event)"></app-modal-lista-iconos>
+<app-modal-lista-iconos [isModalOpen]="openListIcon" (cerrarModal)="cerrarModalListIcon($event)"></app-modal-lista-iconos>

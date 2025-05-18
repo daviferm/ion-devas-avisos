@@ -17,9 +17,9 @@ export class IconUrlPipe implements PipeTransform {
     //==========================================================
     // Establecer preferencia de Alarmas en función de la Fuente
     //==========================================================
-    const averia = value.detalles[0].Descripcion;
-    const aviso = value.detalles[0];
-    let objAlarma = value.detalles[0];
+    let averia = ( value.detalles.length > 0 ) ? value.detalles[0].Descripcion : undefined;
+    let aviso = ( value.detalles.length > 0 ) ? value.detalles[0] : undefined;
+    let objAlarma = ( value.detalles.length > 0 ) ? value.detalles[0] : undefined;
     // if ( value.alarma.Fuente === ',' ) {
     //   objAlarma = value.detalles[0];
     // }
@@ -27,141 +27,174 @@ export class IconUrlPipe implements PipeTransform {
     // Enviar imagen marcador para parquímetro de alta rotación
     //==========================================================
     if ( value.alarma.Tarifa === 'AR' ) {
-
       // const averia = aviso.Descripcion;
+      if ( aviso ) {
+        if ( aviso.Fuente == 'Plataforma' ) {
 
-      if ( aviso.Fuente == 'Plataforma' ) {
+            if (   aviso.Descripcion.includes('CONEXION') || aviso.Descripcion.includes('No comunica') ) {
 
-          if (   aviso.Descripcion.includes('CONEXION') || aviso.Descripcion.includes('No comunica') ) {
+              this.urlAltaRotacion = `${this.urlAltaRotacion}/plataforma`;
 
-            this.urlAltaRotacion = `${this.urlAltaRotacion}/plataforma`;
+            } else  if ( aviso.Estado == 'Fuera de Servicio' ) {
 
-          } else  if ( aviso.Estado == 'Fuera de Servicio' ) {
+              this.urlAltaRotacion = `${this.urlAltaRotacion}/plataforma/fueraDeServicio`;
 
-            this.urlAltaRotacion = `${this.urlAltaRotacion}/plataforma/fueraDeServicio`;
+            } else {
 
-          } else {
+              this.urlAltaRotacion = `${this.urlAltaRotacion}/plataforma`;
 
-            this.urlAltaRotacion = `${this.urlAltaRotacion}/plataforma`;
+            }
+          }
+
+          if ( aviso.Fuente == 'Controlador' ) {
+
+            this.urlAltaRotacion = `${this.urlAltaRotacion}/controlador`;
 
           }
-        }
 
-        if ( aviso.Fuente == 'Controlador' ) {
-
-          this.urlAltaRotacion = `${this.urlAltaRotacion}/controlador`;
-
-        }
-
-          this.url = this.incluirIcono( averia, this.urlAltaRotacion );
-          // this.url = this.incluirIconoAltarotacion( aviso );
-          return this.url;
+            this.url = this.incluirIcono( averia, this.urlAltaRotacion );
+            // this.url = this.incluirIconoAltarotacion( aviso );
+            return this.url;
+      } else  {
+        //*?==============================================
+        //*? Ruta si no hay detalldes de la alarma
+        //*?==============================================
+        return `assets/img/altaRotacion/basico.png`
+      }
     }
-    // Avisos de la Plataforma
-    if ( objAlarma.Fuente === 'Plataforma' ) {
-      //==========================================================
-      // Avisos de Petición de mantenimiento (Plataforma)
-      //==========================================================
-      // if ( objAlarma.Estado == 'No Comunica' ) {
-        //   this.url = 'assets/img/plataforma/offline.png';
-        //       return this.url;
-        // }
-        if ( objAlarma.Estado.includes('Fuera de servicio') || objAlarma.Estado.includes('Fuera de Servicio') ) {
-          //==========================================================
-          // Avisos Fuera de Servicio => Plataforma
-          //==========================================================
-          if ( averia.includes('Violaci�n puerta') || averia.includes('Violacion de puerta') || averia.includes('Violaci�n alcanc�a') ) {
-            this.url = 'assets/img/plataforma/violacionpuerta.png';
-            return this.url;
-          }
-          if ( averia.includes('Impresora') ) {
-            this.url = 'assets/img/plataforma/impresora2.png';
-            return this.url;
-          }
-          if ( averia.includes('monedas') ) {
-            this.url = 'assets/img/plataforma/monedas2.png';
-            return this.url;
-          }
-          if ( averia.includes('Teclado') ) {
-            this.url = 'assets/img/plataforma/teclado2.png';
-            return this.url;
-          }
-          if ( averia.includes('Bater�a') || averia.includes('Bateria') ) {
-            this.url = 'assets/img/plataforma/bateria2.png';
-            return this.url;
-          }
-          if ( averia.includes('Antidrilling') ) {
-            this.url = 'assets/img/plataforma/fueradeservicioantidriling.png';
-            return this.url;
-          }
-          this.url = 'assets/img/plataforma/fueradeservicio.png';
-          return this.url;
-
-      } else if ( objAlarma.Estado === 'No comunica' ) {
-          //==========================================================
-          // AVISOS SIN CONEXIÓN (PRATAFORMA)
-          //==========================================================
-          this.url = 'assets/img/plataforma/offline2.png';
-          return this.url;
-      } else {
-          //==========================================================
-            // Avisos Petición de mantenimiento => Plataforma
+    //*?==============================================
+    //*? Avisos de la Plataforma
+    //*?==============================================
+    if ( objAlarma ) {
+      if ( objAlarma.Fuente === 'Plataforma' ) {
+        //==========================================================
+        // Avisos de Petición de mantenimiento (Plataforma)
+        //==========================================================
+        // if ( objAlarma.Estado == 'No Comunica' ) {
+          //   this.url = 'assets/img/plataforma/offline.png';
+          //       return this.url;
+          // }
+          if ( objAlarma.Estado.includes('Fuera de servicio') || objAlarma.Estado.includes('Fuera de Servicio') ) {
             //==========================================================
-            if ( averia.includes('tarjetas') || averia.includes('EMV') ) {
-              this.url = 'assets/img/plataforma/tarjeta.png';
+            // Avisos Fuera de Servicio => Plataforma
+            //==========================================================
+            if ( averia.includes('Violaci�n puerta') || averia.includes('Violacion de puerta') || averia.includes('Violaci�n alcanc�a') ) {
+              this.url = 'assets/img/plataforma/violacionpuerta.png';
               return this.url;
             }
-            if ( averia.includes('Bater�a') || averia.includes('Bateria baja') ) {
-              this.url = 'assets/img/plataforma/bateria.png';
-              return this.url;
-            }
-            if ( averia.includes('TECLADO') ) {
-              this.url = 'assets/img/plataforma/teclado.png';
-              return this.url;
-            }
-            if ( averia.includes('Antidrilling') ) {
-              this.url = 'assets/img/plataforma/antidriling.png';
-              return this.url;
-            }
-            if ( averia.includes('tiquets') || averia.includes('Impresora')) {
-              this.url = 'assets/img/plataforma/impresora.png';
+            if ( averia.includes('Impresora') ) {
+              this.url = 'assets/img/plataforma/impresora2.png';
               return this.url;
             }
             if ( averia.includes('monedas') ) {
-              this.url = 'assets/img/plataforma/monedas.png';
+              this.url = 'assets/img/plataforma/monedas2.png';
               return this.url;
             }
-            if ( averia.includes('No comunica') ) {
+            if ( averia.includes('Teclado') ) {
+              this.url = 'assets/img/plataforma/teclado2.png';
+              return this.url;
+            }
+            if ( averia.includes('Bater�a') || averia.includes('Bateria') ) {
+              this.url = 'assets/img/plataforma/bateria2.png';
+              return this.url;
+            }
+            if ( averia.includes('Antidrilling') ) {
+              this.url = 'assets/img/plataforma/fueradeservicioantidriling.png';
+              return this.url;
+            }
+            this.url = 'assets/img/plataforma/fueradeservicio.png';
+            return this.url;
+
+          } else if ( objAlarma.Estado === 'No comunica' ) {
+              //==========================================================
+              // AVISOS SIN CONEXIÓN (PRATAFORMA)
+              //==========================================================
               this.url = 'assets/img/plataforma/offline2.png';
               return this.url;
-            }
-            if ( averia.includes('Violaci�n alcanc�a') || averia.includes('Violaci�n puerta') ) {
-              console.log(averia);
-              this.url = 'assets/img/plataforma/abierto.png';
-              return this.url;
-            }
-            if ( averia.includes('datapack') ) {
-              this.url = 'assets/img/plataforma/data-pack2.png';
-              return this.url;
-            }
-            if ( averia.includes('�tems') ) {
-              this.url = 'assets/img/plataforma/envio-items.png';
-              return this.url;
-            }
-            if ( objAlarma.Estado == 'No Comunica' ) {
-              this.url = 'assets/img/plataforma/offline2.png';
-              return this.url;
-            }
+          } else {
+              //==========================================================
+                // Avisos Petición de mantenimiento => Plataforma
+                //==========================================================
+                if ( averia.includes('tarjetas') || averia.includes('EMV') ) {
+                  this.url = 'assets/img/plataforma/tarjeta.png';
+                  return this.url;
+                }
+                if ( averia.includes('Bater�a') || averia.includes('Bateria baja') ) {
+                  this.url = 'assets/img/plataforma/bateria.png';
+                  return this.url;
+                }
+                if ( averia.includes('TECLADO') ) {
+                  this.url = 'assets/img/plataforma/teclado.png';
+                  return this.url;
+                }
+                if ( averia.includes('Antidrilling') ) {
+                  this.url = 'assets/img/plataforma/antidriling.png';
+                  return this.url;
+                }
+                if ( averia.includes('tiquets') || averia.includes('Impresora')) {
+                  this.url = 'assets/img/plataforma/impresora.png';
+                  return this.url;
+                }
+                if ( averia.includes('monedas') ) {
+                  this.url = 'assets/img/plataforma/monedas.png';
+                  return this.url;
+                }
+                if ( averia.includes('No comunica') ) {
+                  this.url = 'assets/img/plataforma/offline2.png';
+                  return this.url;
+                }
+                if ( averia.includes('Violaci�n alcanc�a') || averia.includes('Violaci�n puerta') ) {
+                  console.log(averia);
+                  this.url = 'assets/img/plataforma/abierto.png';
+                  return this.url;
+                }
+                if ( averia.includes('datapack') ) {
+                  this.url = 'assets/img/plataforma/data-pack2.png';
+                  return this.url;
+                }
+                if ( averia.includes('�tems') ) {
+                  this.url = 'assets/img/plataforma/envio-items.png';
+                  return this.url;
+                }
+                if ( objAlarma.Estado == 'No Comunica' ) {
+                  this.url = 'assets/img/plataforma/offline2.png';
+                  return this.url;
+                }
 
-            return this.url = 'assets/img/plataforma/basico.png';
+                return this.url = 'assets/img/plataforma/basico.png';
 
+          }
+
+      } else {
+          //==========================================================
+          // AVISOS CONTROLADOR
+          //==========================================================
+          this.url = this.incluirIcono( averia, this.urlControlador );
+          return this.url;
       }
+
     } else {
-        //==========================================================
-        // AVISOS CONTROLADOR
-        //==========================================================
-        this.url = this.incluirIcono( averia, this.urlControlador );
-        return this.url;
+      //*?==============================================
+      //*? Avisos de Plataforma sin Detalles
+      //*?==============================================
+      if ( value.alarma.Fuente == 'Plataforma' ) {
+        if ( value.alarma.Estado == 'Fuera de Servicio' ) {
+
+          return 'assets/img/plataforma/fueradeservicio.png';
+        } else {
+          //*?==============================================
+          //*? Avisos Petición de Mantenimiento sin Detalles
+          //*?==============================================
+          return 'assets/img/plataforma/basico.png';
+        }
+
+      } else {
+        //*?==============================================
+        //*? Avisos de Controlador sin detalles
+        //*?==============================================
+        return 'assets/img/controlador/basico.png';
+      }
+      return 'assets/img/plataforma/basico.png';
     }
   }
 

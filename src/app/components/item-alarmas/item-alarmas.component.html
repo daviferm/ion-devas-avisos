@@ -8,19 +8,37 @@
                     </div>
                 </button>
                 <div *ngFor="let alarma of barrio.alarmas">
-                    <button type="button" (click)="mostrarDetalles(alarma)" class="peticionMantenimiento item" [ngClass]="{'tituloAlarmaNoComunica': alarma.detalles[0].Descripcion == 'No comunica', 'tituloAlarmaFueradeServicio': alarma.alarma.Estado.toUpperCase() === 'FUERA DE SERVICIO', 'altaRotacion': alarma.alarma.Tarifa === 'AR'}">
+                    @if( alarma.detalles.length > 0 ) {
+
+                      <button type="button" (click)="mostrarDetalles(alarma)" class="peticionMantenimiento item" [ngClass]="{'tituloAlarmaNoComunica': alarma.detalles[0].Descripcion == 'No comunica', 'tituloAlarmaFueradeServicio': alarma.alarma.Estado.toUpperCase() === 'FUERA DE SERVICIO', 'altaRotacion': alarma.alarma.Tarifa === 'AR'}">
+                          <div class="pre-img">
+                              <img *ngIf="alarma.alarma.Fuente.includes('Controlador') || alarma.detalles[0].Fuente.includes('Controlador')" src="../../../assets/img/controlador.png">
+                          </div>
+                          <img class="img-ar" *ngIf="alarma.alarma.Tarifa === 'AR'" src="../../../assets/img/alarmas/altaRotacion.png" alt="">
+                          <p>
+                              {{ alarma.alarma.Parquimetro }}
+                          </p>
+                          <div class="imagen">
+                              <img [src]="alarma | imgItem">
+                              <ion-icon *ngIf="alarma.detalles[0].Descripcion.includes('datapack')" name="hardware-chip-outline"></ion-icon>
+                          </div>
+                      </button>
+                    } @else {
+                      <button type="button" (click)="mostrarDetalles(alarma)" class="peticionMantenimiento item" [ngClass]="{'tituloAlarmaNoComunica': alarma.alarma.Estado == 'No comunica', 'tituloAlarmaFueradeServicio': alarma.alarma.Estado.toUpperCase() === 'FUERA DE SERVICIO', 'altaRotacion': alarma.alarma.Tarifa === 'AR'}">
                         <div class="pre-img">
-                            <img *ngIf="alarma.alarma.Fuente.includes('Controlador') || alarma.detalles[0].Fuente.includes('Controlador')" src="../../../assets/img/controlador.png">
+                            <img *ngIf="alarma.alarma.Fuente.includes('Controlador') || alarma.alarma.Fuente.includes('Controlador')" src="../../../assets/img/controlador.png">
                         </div>
                         <img class="img-ar" *ngIf="alarma.alarma.Tarifa === 'AR'" src="../../../assets/img/alarmas/altaRotacion.png" alt="">
-                        <p>
+                        <p class="sin-detalles">
                             {{ alarma.alarma.Parquimetro }}
                         </p>
-                        <div class="imagen">
-                            <img [src]="alarma | imgItem">
-                            <ion-icon *ngIf="alarma.detalles[0].Descripcion.includes('datapack')" name="hardware-chip-outline"></ion-icon>
-                        </div>
+                          <!-- <div class="imagen">
+                              <img [src]="alarma | imgItem">
+                              <ion-icon *ngIf="alarma.detalles[0].Descripcion.includes('datapack')" name="hardware-chip-outline"></ion-icon>
+                          </div> -->
                     </button>
+
+                    }
                 </div>
             </div>
         </div>
@@ -52,18 +70,21 @@
                             <ion-badge class="mr-2" color="tertiary">Barrio:</ion-badge>{{ selectAlarma.alarma.Barrio }} </p>
                         <p class="mb-2">
                             <ion-badge class="mr-2" color="tertiary">Dirección:</ion-badge> {{ selectAlarma.alarma.Direccion }}</p>
-                        <p class="mb-2">
-                            <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ selectAlarma.detalles[0].FechaInicio | date:'short'  }}</p>
-                        <p class="mb-2">
-                            <ion-badge class="mr-2" color="tertiary">Fuente:</ion-badge> {{ selectAlarma.detalles[0].Fuente }}</p>
+                        @if( selectAlarma.detalles.length > 0 ) {
 
-                        <ion-item [ngClass]="{'std-mant': selectAlarma.alarma.Estado === 'Petici�n de mantenimiento',
-                                              'std-sin-servicio': selectAlarma.alarma.Estado === 'Fuera de servicio',
-                                              'std-conexion': selectAlarma.alarma.Estado === 'No comunica'}">
-                            <p class="mb-2 estado">
-                                {{ selectAlarma.detalles[0].Estado }}
-                            </p>
-                        </ion-item>
+                          <p class="mb-2">
+                              <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ selectAlarma.detalles[0].FechaInicio | date:'short'  }}</p>
+                          <p class="mb-2">
+                              <ion-badge class="mr-2" color="tertiary">Fuente:</ion-badge> {{ selectAlarma.detalles[0].Fuente }}</p>
+                          <ion-item [ngClass]="{'std-mant': selectAlarma.alarma.Estado === 'Petici�n de mantenimiento',
+                                                'std-sin-servicio': selectAlarma.alarma.Estado === 'Fuera de servicio',
+                                                'std-conexion': selectAlarma.alarma.Estado === 'No comunica'}">
+                              <p class="mb-2 estado">
+                                  {{ selectAlarma.detalles[0].Estado }}
+                              </p>
+                          </ion-item>
+                        }
+
                         <ion-item-divider>
                             <ion-label>
                                 Detalles:
