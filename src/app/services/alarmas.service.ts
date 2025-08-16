@@ -10,16 +10,12 @@ import { Router } from '@angular/router';
 })
 export class AlarmasService {
   public actualizarAvisos = new EventEmitter<any>();
-  // Railway
 
-  // url_localhost = 'http://localhost:3000/login';
 
   //* URL vps Clouding.io
-  public URL_BACKDVS = 'https://backend-devas-production.up.railway.app/login';
-  // public URL_BACKDVS = 'http://161.22.42.76:443/login';
-  // public URL_BACKDVS = 'http://dvs-backend.es/login';
-  //* URL Firebase producción
-  public URL_FIREBASE = 'https://us-central1-avisos-devas-pwa.cloudfunctions.net/api/login';
+  public URL_BACKDVS = 'https://dvs-backend.es/login';
+  //* URL Railway producción
+  public URL_RAILWAY = 'https://backend-devas-production.up.railway.app/login';
 
   public URL_ALARMAS = this.URL_BACKDVS;
 

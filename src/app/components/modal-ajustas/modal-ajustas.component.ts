@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Output, Renderer2, ViewChild, EventEmitter, Input, inject, signal } from '@angular/core';
+import { Component, ElementRef, Output, Renderer2, ViewChild, EventEmitter, Input, inject } from '@angular/core';
 import { objStorage } from '../../interfaces/alarmas.interface';
 import { StorageService } from '../../services/storage.service';
 import { timer } from 'rxjs';
@@ -9,7 +9,7 @@ import { timer } from 'rxjs';
   templateUrl: './modal-ajustas.component.html',
   styleUrls: ['./modal-ajustas.component.scss'],
 })
-export class ModalAjustasComponent implements OnInit {
+export class ModalAjustasComponent {
 
   private renderer = inject( Renderer2 );
   public storageService = inject( StorageService );
@@ -52,19 +52,17 @@ export class ModalAjustasComponent implements OnInit {
     {barrio: 'Barrio 94', devas: 'uno', numero: '94', activo: true},
   ];
 
-  ngOnInit() {
-
-  }
   ngAfterViewInit() {
 
     const barrios = this.storageService.getLocalStorage('area-barrios');
     this.delay.subscribe( () => {
       this.llenarAjustes( JSON.parse(barrios!) );
-    } );
+    })
 
 
     this.storageService.actualizarAjustes.subscribe( ajustes => {
       if ( ajustes ) {
+        console.log('Ajustes recibidos: ', ajustes);
         const barrios = this.storageService.getLocalStorage('area-barrios');
         this.delay.subscribe( () => {
           this.llenarAjustes( JSON.parse(barrios!) );
@@ -120,8 +118,8 @@ export class ModalAjustasComponent implements OnInit {
   llenarAjustes( data: objStorage[] ) {
 
     const elements = this.myToggle.nativeElement.children;
-
     for ( let i = 0; i < elements.length; i++ ) {
+
       this.renderer.setAttribute( elements[i].children[1], 'checked', String(data[i].activo) );
     }
 

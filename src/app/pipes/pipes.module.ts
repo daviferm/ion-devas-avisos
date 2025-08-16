@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IconUrlPipe } from './icon-url.pipe';
 import { DomseguroPipe } from './domseguro.pipe';
 import { ImgItemPipe } from './img-item.pipe';
+import { ConvertFechaPipe } from './convert-fecha.pipe';
 
 
 
@@ -10,12 +11,14 @@ import { ImgItemPipe } from './img-item.pipe';
   declarations: [
     IconUrlPipe,
     DomseguroPipe,
-    ImgItemPipe
+    ImgItemPipe,
+    ConvertFechaPipe
   ],
   exports: [
     IconUrlPipe,
     ImgItemPipe,
-    DomseguroPipe
+    DomseguroPipe,
+    ConvertFechaPipe
   ],
   imports: [
     CommonModule

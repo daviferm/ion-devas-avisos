@@ -8,6 +8,7 @@ export interface Alarma {
     'Fuente': string;
     'Tarifa'?: string;
     'Error'?: boolean;
+    llave?: string;
 }
 
 export interface Detalles {

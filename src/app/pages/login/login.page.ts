@@ -52,7 +52,7 @@ export class LoginPage {
     if ( event.detail == 'clouding' ) {
       this.alarmasService.URL_ALARMAS = this.alarmasService.URL_BACKDVS;
     } else {
-      this.alarmasService.URL_ALARMAS = this.alarmasService.URL_FIREBASE;
+      this.alarmasService.URL_ALARMAS = this.alarmasService.URL_RAILWAY;
     }
   }
 

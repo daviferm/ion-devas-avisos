@@ -18,13 +18,20 @@
                     <h2 *ngIf="item.alarma.Tarifa === 'AR'">
                         <ion-badge class="badge-ar" color="primary">ALTA ROTACIÓN</ion-badge>
                     </h2>
+                    <h2 *ngIf="item.alarma.llave !== undefined">
+                        <ion-badge class="badge-ar" color="danger">
+                          LLAVE:
+                          <ion-icon name="key-outline"></ion-icon>
+                          {{ item.alarma.llave }}
+                        </ion-badge>
+                    </h2>
                     <p class="mb-2">
                         <ion-badge class="mr-2" color="tertiary">Barrio:</ion-badge>{{ item.alarma.Barrio }} </p>
                     <p class="mb-2">
                         <ion-badge class="mr-2" color="tertiary">Dirección:</ion-badge> {{ item.alarma.Direccion }}</p>
                         @if( item.detalles.length > 0 ) {
-                          <p class="mb-2">
-                              <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ item.detalles[0].FechaInicio | date:'short' }}</p>
+                            <p class="mb-2">
+                              <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ item.detalles[0].FechaInicio | slice:0:-3 }}</p>
                           <p class="mb-2">
                               <ion-badge class="mr-2" color="tertiary">Fuente:</ion-badge> {{ item.detalles[0].Fuente }}</p>
                         }

@@ -73,7 +73,7 @@
                         @if( selectAlarma.detalles.length > 0 ) {
 
                           <p class="mb-2">
-                              <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ selectAlarma.detalles[0].FechaInicio | date:'short'  }}</p>
+                              <ion-badge class="mr-2" color="tertiary">Fecha:</ion-badge> {{ selectAlarma.detalles[0].FechaInicio | slice:0:-3  }}</p>
                           <p class="mb-2">
                               <ion-badge class="mr-2" color="tertiary">Fuente:</ion-badge> {{ selectAlarma.detalles[0].Fuente }}</p>
                           <ion-item [ngClass]="{'std-mant': selectAlarma.alarma.Estado === 'Petici�n de mantenimiento',

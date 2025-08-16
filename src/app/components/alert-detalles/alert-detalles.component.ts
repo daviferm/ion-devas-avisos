@@ -21,11 +21,34 @@ export class AlertDetallesComponent implements OnInit {
   @Input() titulo!: string;
   @Input() item!: Marker;
   rutaActiva!: string;
+  itemLlave: string[] = ['4410166', '5410363', '5511020', '5210614', '5310599',
+                         '5510413', '5510359', '5410810', '5310532', '4410166',
+                         '5311154', '5510413', '5110301', '5310594', '5510979',
+                         '5410776', '5210640', '5410815', '5410866', '4410031',
+                         '5410861', '4410168', '5510972', '5410819', '4410099',
+                         '5310600', '5510969', '5110477', '4410031'
+  ];
+  llave: string[] = ['342', '328', '320', '345', '334', '348', '348', '326',
+                     '345', '342', '303', '348', '320', '328', '307', '320',
+                     '328', '348', '330', '332', '330', '342', '326', '342', '320', '328', '307', '303', '332'
+  ];
+
+
+
+
 
   constructor(  ) {}
 
 
   ngOnInit() {
+    const numeroItem = this.item.alarma.Parquimetro.slice( 3, this.item.alarma.Parquimetro.length);
+
+    const index = this.itemLlave.indexOf(numeroItem);
+    if ( index !== -1 ) {
+      this.item.alarma.llave = this.llave[index];
+    } else {
+      console.log('Llave correcta');
+    }
   }
 
   async comoLlegar( marker: Marker, mapa: string ) {

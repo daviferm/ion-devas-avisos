@@ -181,7 +181,7 @@ export class HomePage {
               idAlarmaActual: elem[5],
               // prioridad: 1
             };
-            // let detalles = this.convertirFecha( detalle );
+            // detalle.FechaInicio = this.convertirFecha( detalle.FechaInicio );
 
             const prioridad = this.establecerPrioridad(detalle);
             detalle.prioridad = prioridad;
@@ -316,6 +316,7 @@ export class HomePage {
   //?===============================================
   //? Convertir en objeto new Date
   //?===============================================
+
   convertirFecha(inicio: string) {
       let numMes = Number(inicio.slice(3,5)) - 1;
       const mes = ( numMes < 10 ) ? `0${numMes}` : numMes;
